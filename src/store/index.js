@@ -7,6 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     products: [],
+    logged: false,
+    cart: [],
   },
   getters: {
     products(state) {
@@ -24,11 +26,17 @@ export default new Vuex.Store({
 
       return grouped;
     },
+    getCartProducts(state) {
+      return state.cart;
+    },
   },
 
   mutations: {
     setProducts(state, products) {
       state.products = products;
+    },
+    setCart(state, items) {
+      state.cart.push(items);
     },
   },
   actions: {
@@ -36,6 +44,9 @@ export default new Vuex.Store({
       return service.fetchProducts().then((snapshot) => {
         context.commit('setProducts', snapshot.data);
       });
+    },
+    getCart(context, payload) {
+      context.commit('setCart', payload);
     },
   },
   modules: {

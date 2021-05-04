@@ -1,13 +1,42 @@
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  data() {
+    return {
+    };
+  },
+  computed: {
+    ...mapGetters({
+      product: 'getCartProducts',
+    }),
+  },
+  methods: {
+    increase() {},
+    decrease() {},
+    getTotalPrice() {
+      const container = this.product;
+      const total = container.reduce((accumulator, current) => accumulator + current.price, 0);
+      return total;
+    },
+    buy() {
+      alert('Payment has been made. Good day. You are directed to the main page.');
+    },
+  },
+};
+</script>
 <template>
-<div class="container px-4 py-5 mx-auto">
+<div class="container px-4 py-5 mx-auto" >
     <div class="row d-flex justify-content-center">
         <div class="col-5">
             <h4 class="heading">Shopping Bag</h4>
+            <router-link to='/'>
+            <span class="list-style:none;">Contiune Shopping</span></router-link>
         </div>
         <div class="col-7">
             <div class="row text-right">
                 <div class="col-4">
-                    <h6 class="mt-2">Format</h6>
+                    <h6 class="mt-2">Category</h6>
                 </div>
                 <div class="col-4">
                     <h6 class="mt-2">Quantity</h6>
@@ -18,32 +47,33 @@
             </div>
         </div>
     </div>
-    <div class="row d-flex justify-content-center border-top">
+    <div class="row d-flex justify-content-center
+     border-top" v-for="product in product" :key="product">
         <div class="col-5">
             <div class="row d-flex">
-                <div class="book"> <img src="" class="book-img"></div>
+                <div class="book"> <img :src="product.image" class="book-img"></div>
                 <div class="my-auto flex-column d-flex pad-left">
-                    <h6 class="mob-text">Thinking, Fast and Slow</h6>
-                    <p class="mob-text">Daniel Kahneman</p>
+                    <h6 class="mob-text">{{product.title}}</h6>
+                    <p class="mob-text">{{product.description}}</p>
                 </div>
             </div>
         </div>
         <div class="my-auto col-7">
             <div class="row text-right">
                 <div class="col-4">
-                    <p class="mob-text">Digital</p>
+                    <p class="mob-text">{{product.category}}</p>
                 </div>
                 <div class="col-4">
                     <div class="row d-flex justify-content-end px-3">
-                        <p class="mb-0" id="cnt1">1</p>
+                        <p class="mb-0" id="cnt1">{{product.quantity}}</p>
                         <div class="d-flex flex-column plus-minus">
-                            <span class="vsm-text plus">+</span>
-                            <span class="vsm-text minus">-</span>
+                            <span @click='increase' class="vsm-text plus">+</span>
+                            <span @click='decrease' class="vsm-text minus">-</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <h6 class="mob-text">$9.99</h6>
+                    <h6 class="mob-text">${{product.price}}</h6>
                 </div>
             </div>
         </div>
@@ -55,16 +85,16 @@
                     <div class="col-lg-4 mt-2">
                         <div class="row d-flex justify-content-between px-4">
                             <p class="mb-1 text-left">Subtotal</p>
-                            <h6 class="mb-1 text-right">$23.49</h6>
+                            <h6 class="mb-1 text-right">${{getTotalPrice()}}</h6>
                         </div>
-                        <div class="row d-flex justify-content-between px-4" id="tax">
+                        <!-- <div class="row d-flex justify-content-between px-4" id="tax">
                             <p class="mb-1 text-left">Total (tax included)</p>
                             <h6 class="mb-1 text-right">$26.48</h6>
-                        </div>
-                        <button class="btn-block btn-blue">
+                        </div> -->
+                        <button @click="buy" class="btn-block btn-blue">
                             <span>
                                 <span id="checkout">Checkout</span>
-                                <span id="check-amt">$26.48</span>
+                                <span id="check-amt">${{getTotalPrice()}}</span>
                             </span>
                         </button>
                     </div>

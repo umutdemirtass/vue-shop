@@ -14,6 +14,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(
           () => {
+            this.$store.state.logged = true;
             alert('Entry has been made successfully');
             this.$router.push('/');
           },

@@ -1,10 +1,29 @@
 <script>
+
 export default {
   name: 'Product',
+  data() {
+    return {
+      fk: [],
+    };
+  },
   props: {
     product: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    handleClick(e) {
+      const { logged } = this.$store.state;
+
+      if (!logged) {
+        alert('You must login first');
+        return;
+      }
+
+      alert('The product has been added to the cart');
+      this.$store.dispatch('getCart', e);
     },
   },
 };
@@ -24,7 +43,7 @@ export default {
     <div class="card-footer">
       <small class="text-muted text-right">Price: ${{product.price}}</small>
     </div>
-    <button class="btn btn-primary">Satin Al</button>
+    <button class="btn btn-primary" @click="handleClick(product)">Satin Al</button>
   </div>
 </template>
 
