@@ -12,11 +12,15 @@ export default {
     }),
   },
   methods: {
-    increase() {},
-    decrease() {},
+    increase(id) {
+      this.$store.commit('setInc', id);
+    },
+    decrease(id) {
+      this.$store.commit('setDec', id);
+    },
     getTotalPrice() {
       const container = this.product;
-      const total = container.reduce((accumulator, current) => accumulator + current.price, 0);
+      const total = container.reduce((accumulator, current) => accumulator + current.showPrice, 0);
       return total;
     },
     buy() {
@@ -67,13 +71,13 @@ export default {
                     <div class="row d-flex justify-content-end px-3">
                         <p class="mb-0" id="cnt1">{{product.quantity}}</p>
                         <div class="d-flex flex-column plus-minus">
-                            <span @click='increase' class="vsm-text plus">+</span>
-                            <span @click='decrease' class="vsm-text minus">-</span>
+                            <span @click='increase(product.id)' class="vsm-text plus">+</span>
+                            <span @click='decrease(product.id)' class="vsm-text minus">-</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <h6 class="mob-text">${{product.price}}</h6>
+                    <h6 class="mob-text">${{product.showPrice}}</h6>
                 </div>
             </div>
         </div>
@@ -87,16 +91,14 @@ export default {
                             <p class="mb-1 text-left">Subtotal</p>
                             <h6 class="mb-1 text-right">${{getTotalPrice()}}</h6>
                         </div>
-                        <!-- <div class="row d-flex justify-content-between px-4" id="tax">
-                            <p class="mb-1 text-left">Total (tax included)</p>
-                            <h6 class="mb-1 text-right">$26.48</h6>
-                        </div> -->
+                        <router-link to="/">
                         <button @click="buy" class="btn-block btn-blue">
                             <span>
                                 <span id="checkout">Checkout</span>
                                 <span id="check-amt">${{getTotalPrice()}}</span>
                             </span>
                         </button>
+                        </router-link>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,6 @@ export default {
   name: 'Product',
   data() {
     return {
-      fk: [],
     };
   },
   props: {
@@ -43,7 +42,7 @@ export default {
     <div class="card-footer">
       <small class="text-muted text-right">Price: ${{product.price}}</small>
     </div>
-    <button class="btn btn-primary" @click="handleClick(product)">Satin Al</button>
+    <button class="btn btn-primary" @click="handleClick(product)">Buy it now</button>
   </div>
 </template>
 

@@ -38,6 +38,22 @@ export default new Vuex.Store({
     setCart(state, items) {
       state.cart.push(items);
     },
+    setInc(state, id) {
+      for (let i = 0; i < state.cart.length; i += 1) {
+        if (state.cart[i].id === id) {
+          state.cart[i].quantity += 1;
+          state.cart[i].showPrice = state.cart[i].quantity * state.cart[i].price;
+        }
+      }
+    },
+    setDec(state, id) {
+      for (let i = 0; i < state.cart.length; i += 1) {
+        if (state.cart[i].id === id) {
+          state.cart[i].quantity -= 1;
+          state.cart[i].showPrice = state.cart[i].quantity * state.cart[i].price;
+        }
+      }
+    },
   },
   actions: {
     fetchProducts(context) {
