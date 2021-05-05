@@ -1,4 +1,4 @@
-# firs e-commerce app
+# first e-commerce app
 
 ## Project setup
 ```
