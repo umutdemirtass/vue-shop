@@ -1,4 +1,4 @@
-# e-commerce
+# firs e-commerce app
 
 ## Project setup
 ```
